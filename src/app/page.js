@@ -1,18 +1,26 @@
-import { FaGithub, FaInstagram, FaLinkedin, FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaLaravel, FaPhp } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaHtml5, FaCss3Alt, FaJs, FaBootstrap, FaLaravel, FaPhp, FaUser, FaProjectDiagram, FaBriefcase, FaServicestack, FaCogs } from "react-icons/fa";
 import { SiFigma, SiCanva, SiAndroidstudio, SiUnity, SiBlender, SiVscode } from "react-icons/si";
+import { GrContactInfo } from "react-icons/gr";
 import { VscVscodeInsiders } from "react-icons/vsc";
-import { FaUser, FaProjectDiagram, FaBriefcase, FaServicestack, FaCogs } from "react-icons/fa";
 
 import Header from './components/Header';
 
 export default function Home() {
+  const navigation = [
+    { name: 'About Me', href: '/', icon: <FaUser /> },
+    { name: 'Projects', href: '/projects', icon: <FaProjectDiagram /> },
+    { name: 'Experience', href: '/experience', icon: <FaBriefcase /> },
+    { name: 'Services', href: '/services', icon: <FaServicestack /> },
+    { name: 'Contact Me', href: '/contact', icon: <GrContactInfo /> },
+  ];
+
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#0F182D] pt-20 px-4 sm:px-6 lg:px-12">
+      <main className="min-h-screen bg-[#0F182D] pt-20 px-4 sm:px-6 lg:px-12 pb-24"> {/* Tambahkan pb-24 untuk memberikan ruang di bawah navigasi mobile */}
         {/* Hero Section */}
         <div className="container mx-auto flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-16">
-
+          
           {/* Kiri: Tulisan dan Foto */}
           <div className="flex flex-col lg:w-1/2 space-y-6">
             <div className="bg-[#1A2238] shadow-lg p-8 rounded-lg text-center lg:text-left">
@@ -23,11 +31,11 @@ export default function Home() {
                 Seorang Web Developer yang berfokus pada pembuatan website modern dan responsif.
               </p>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center lg:justify-start">
               <img
                 src="/profile.jpg"
                 alt="Foto Ficky"
-                className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] lg:w-[362px] lg:h-[362px] rounded-full shadow-lg object-cover border-4 border-gradient-to-r from-pink-500 to-purple-500"
+                className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] lg:w-[362px] lg:h-[362px] rounded-full shadow-lg object-cover border-4 border-transparent"
                 loading="lazy"
               />
             </div>
@@ -35,7 +43,7 @@ export default function Home() {
 
           {/* Kanan: Perkenalan */}
           <div className="bg-[#1A2238] shadow-lg p-8 rounded-lg lg:w-1/2">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white" id="aboutme">
               Tentang Saya
             </h2>
             <p className="mt-6 text-gray-300 text-base sm:text-lg lg:text-xl leading-relaxed">
@@ -51,13 +59,16 @@ export default function Home() {
         <div className="mt-16">
           <div className="container mx-auto flex justify-center">
             <nav className="hidden lg:flex space-x-8">
-              {["About Me", "Projects", "Experience", "Services", "Skill"].map((item, index) => (
+              {navigation.map((item, index) => (
                 <a
                   key={index}
-                  href={`#${item.toLowerCase().replace(' ', '')}`}
-                  className="text-gray-300 hover:text-white text-lg font-semibold transition-colors duration-300"
+                  href={item.href}
+                  className={`flex items-center text-lg font-medium transition-colors duration-300 ${
+                    item.name === 'About Me' ? 'text-white font-bold' : 'text-gray-300 hover:text-white'
+                  }`}
                 >
-                  {item}
+                  {item.icon}
+                  <span className="ml-2">{item.name}</span>
                 </a>
               ))}
             </nav>
@@ -65,19 +76,15 @@ export default function Home() {
         </div>
 
         {/* Menu Navigasi Mobile */}
-        <div className="fixed bottom-0 left-0 right-0 bg-[#1A2238] shadow-t md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 bg-[#1A2238] shadow-md lg:hidden">
           <nav className="container mx-auto flex justify-around items-center py-2">
-            {[
-              { name: "About Me", icon: <FaUser /> },
-              { name: "Projects", icon: <FaProjectDiagram /> },
-              { name: "Experience", icon: <FaBriefcase /> },
-              { name: "Services", icon: <FaServicestack /> },
-              { name: "Skill", icon: <FaCogs /> },
-            ].map((item, index) => (
+            {navigation.map((item, index) => (
               <a
                 key={index}
-                href={`#${item.name.toLowerCase().replace(' ', '')}`}
-                className="flex flex-col items-center text-gray-300 hover:text-white transition-colors duration-300"
+                href={item.href}
+                className={`flex flex-col items-center text-gray-300 hover:text-white transition-colors duration-300 ${
+                  item.name === 'About Me' ? 'text-white font-bold' : ''
+                }`}
               >
                 <span className="text-xl">{item.icon}</span>
                 <span className="text-xs">{item.name}</span>
@@ -188,6 +195,24 @@ export default function Home() {
           </div>
         </footer>
       </main>
+
+      {/* Menu Navigasi Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#1A2238] shadow-md lg:hidden">
+        <nav className="container mx-auto flex justify-around items-center py-2">
+          {navigation.map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              className={`flex flex-col items-center text-gray-300 hover:text-white transition-colors duration-300 ${
+                item.name === 'About Me' ? 'text-white font-bold' : ''
+              }`}
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span className="text-xs">{item.name}</span>
+            </a>
+          ))}
+        </nav>
+      </div>
     </>
   );
 }
